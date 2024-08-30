@@ -1,0 +1,92 @@
+html {
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: black;
+}
+
+body {
+    font-family: Raleway, sans-serif;
+    display: flex;
+    background: white; 
+    color: black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.fancy-wipe {
+    margin: 0;
+    font-weight: 900;
+    font-size: 6rem;
+    position: relative;
+    --duration: 5s;
+    --easing: cubic-bezier(0.75, 1, 0.95, 1);
+    --colors: linear-gradient(
+        90deg,
+        #fff89a,
+        #cdf2ca,
+        #a2cdcd,
+        #d1e8e4,
+        #cab8ff,
+        #ff7878,
+        #ffc898
+    );
+}
+
+.fancy-wipe span {
+    display: block;
+    padding: 2rem;
+    position: relative;
+    animation: wipe-in var(--duration) 1 var(--easing);
+}
+
+.fancy-wipe span::before,
+.fancy-wipe span::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    background-image: var(--colors);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: wipe-in var(--duration) 1 var(--easing);
+}
+
+.fancy-wipe span {
+    color: white;
+    mask: linear-gradient(to right, white, white 5%, rgba(255, 255, 255, 0.5) 50%, white 55%, white);
+    mask-composite: source-over;
+    mask-size: 300% 100%;
+    mask-position: 100% 0px;
+}
+
+.fancy-wipe span::before {
+    mask: linear-gradient(to right, black, black 45%, white 50%, black 52.5%, black);
+    mask-composite: exclude;
+    mask-mode: luminance;
+    mask-size: 300% 100%;
+    mask-position: 100% 0px;
+}
+
+.fancy-wipe span::after {
+    mask: linear-gradient(to right, black, black 45%, white 52.5%, black 55%, black);
+    mask-composite: exclude;
+    mask-mode: luminance;
+    mask-size: 300% 100%;
+    mask-position: 100% 0px;
+    filter: blur(10px);
+}
+
+@keyframes wipe-in {
+    100% {
+        mask-position: 0px 0px;
+    }
+}
